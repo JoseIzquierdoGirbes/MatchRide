@@ -1,0 +1,134 @@
+<div class="inicio-container">
+  <header class="banner">
+    <div class="banner-left" (click)="inicio()">
+      <h1 class="titulo-app">MatchRide</h1>
+    </div>
+
+    <div class="perfil-wrapper" *ngIf="usuario">
+      <div class="perfil-usuario" (click)="collapsed.set(!collapsed())">
+        <img [src]="usuario.fotoPerfil" alt="Foto de perfil" class="foto-perfil" />
+        <p class="nombre-usuario">{{ usuario.username }}</p>
+      </div>
+
+      <div *ngIf="collapsed()" class="menu-dropdown">
+        <a href="" [routerLink]="['/perfil']" class="opcion-menu">Perfil</a>
+        <a (click)="signOut()" class="opcion-menu">Cerrar Sesión</a>
+      </div>
+    </div>
+    <div class="perfil-usuario" *ngIf="!usuario">
+      <button [routerLink]="['/login']" class="btn-iniciar-sesion">
+        Iniciar sesión
+      </button>
+    </div>
+
+
+  </header>
+  <main class="main-layout">
+    <section class="contenido">
+      <div class="form-container">
+        <h2>Crear viaje</h2>
+        <form (ngSubmit)="crearViaje()" [formGroup]="form" novalidate>
+
+          <!-- Partido VS -->
+          <div class="form-row">
+            <label class="form-group">
+              <span>Partido (opcional)</span>
+              <div class="vs-selects">
+                <select formControlName="equipo1">
+                  <option value="">-- Equipo 1 --</option>
+                  <option *ngFor="let e of equipos" [value]="e">{{ e }}</option>
+                </select>
+                <span class="vs">VS</span>
+                <select formControlName="equipo2">
+                  <option value="">-- Equipo 2 --</option>
+                  <option *ngFor="let e of equipos" [value]="e">{{ e }}</option>
+                </select>
+              </div>
+            </label>
+          </div>
+
+          <!-- Fecha -->
+          <div class="form-row">
+            <label class="form-group">
+              <span>Fecha</span>
+              <input type="datetime-local" formControlName="fecha" [min]="minDateTime" />
+              <div *ngIf="form.get('fecha')?.hasError('minHoursAhead') && form.get('fecha')?.touched" class="errorfield">
+                La hora de salida debe de ser minimo 3 horas mayor que la actual
+              </div>
+            </label>
+
+          </div>
+
+          <!-- Origen + Mapa -->
+          <div class="form-row map-row">
+            <div class="form-group">
+              <span>Origen (calle y ciudad)</span>
+              <input type="text" formControlName="addressSalida" placeholder="Calle, Ciudad" />
+              <div class="btns-inline">
+                <button type="button" (click)="geocodeSalida()">Buscar origen</button>
+                <button type="button" (click)="clearSalida()">Limpiar</button>
+              </div>
+              <input formControlName="ciudadSalida" placeholder="Ciudad" readonly />
+              <input formControlName="lugarSalida" placeholder="Dirección" readonly />
+            </div>
+            <div class="map-group">
+              <app-mapa [center]="centerSalida" [zoom]="zoom" [markers]="markersSalida">
+              </app-mapa>
+            </div>
+          </div>
+
+          <!-- Destino + Mapa -->
+          <div class="form-row map-row">
+            <div class="form-group">
+              <span>Destino (calle y ciudad)</span>
+              <input type="text" formControlName="addressLlegada" placeholder="Calle, Ciudad" />
+              <div class="btns-inline">
+                <button type="button" (click)="geocodeLlegada()">Buscar destino</button>
+                <button type="button" (click)="clearLlegada()">Limpiar</button>
+              </div>
+              <input formControlName="ciudadLlegada" placeholder="Ciudad" readonly />
+              <input formControlName="lugarLlegada" placeholder="Dirección" readonly />
+            </div>
+            <div class="map-group">
+              <app-mapa [center]="centerLlegada" [zoom]="zoom" [markers]="markersLlegada">
+              </app-mapa>
+            </div>
+          </div>
+
+          <!-- Precio y Plazas -->
+          <div class="form-row">
+            <label class="form-group">
+              <span>Precio por persona (€)</span>
+              <input type="number" formControlName="precioPorPersona" min="0" />
+            </label>
+            <label class="form-group">
+              <span>Plazas disponibles</span>
+              <input type="number" formControlName="plazasDisponibles" min="1" />
+            </label>
+          </div>
+
+          <!-- Botón Submit -->
+          <div class="form-row">
+            <button type="submit" class="btn-submit">Crear viaje</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <aside class="sidebar">
+      <ul>
+        <li><a [routerLink]="['/inicio']">Inicio</a></li>
+        <li><a [routerLink]="['/viajespublicados']">Viajes publicados</a></li>
+        <li><a [routerLink]="['/reservas']">Mis reservas</a></li>
+        <li *ngIf="usuario?.rol === 'administrador' || usuario?.rol === 'admin'">
+          <a routerLink="/admin">Panel Administrador</a>
+        </li>
+
+      </ul>
+    </aside>
+  </main>
+
+
+
+
+</div>

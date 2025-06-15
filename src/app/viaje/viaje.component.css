@@ -1,0 +1,266 @@
+.viaje-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 16px;
+  height: 100%;
+  font-family: Roboto, sans-serif;
+}
+
+/* Nueva sección organizador */
+.organizador {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.organizador-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 8px;
+  border: 2px solid #007bff;
+}
+.organizador-nombre {
+  font-weight: 600;
+  color: #007bff;
+}
+
+/* Título del viaje */
+.viaje-card h3 {
+  margin: 0 0 8px;
+}
+
+/* Párrafos generales */
+.viaje-card p {
+  margin: 4px 0;
+  color: #555;
+  line-height: 1.4;
+}
+.viaje-card p strong {
+  color: #222;
+}
+
+/* Paneles de mapas */
+.ubicaciones {
+  display: flex;
+  gap: 16px;
+  margin: 16px 0;
+}
+.panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 12px;
+}
+.panel app-mapa {
+  flex: 1;
+  margin-top: 12px;
+}
+.viaje-card app-mapa ::ng-deep google-map {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Botón Reservar */
+.viaje-card button {
+  margin-top: auto;
+  align-self: flex-start;
+  padding: 8px 16px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.viaje-card button:hover {
+  background: #0056b3;
+}
+.viaje-card {
+  position: relative; /* necesario para el posicionamiento absoluto */
+}
+
+/* Solo afectan al botón de borrar */
+.delete-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;       /* aquí lo pones en la esquina superior derecha */
+  background: transparent;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: #c00;
+  padding: 4px;
+}
+.delete-icon:hover {
+  color: #900;
+}
+
+.viaje-card .btn-poner-reseña {
+  margin-top: 16px;
+  align-self: flex-start;
+  padding: 8px 14px;
+  background-color: #28a745;      /* verde para reseñas */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.viaje-card .btn-poner-reseña:hover {
+  background-color: #218838;
+}
+
+/* ===========================
+   Modal / formulario de reseña
+   =========================== */
+
+/* Fondo semitransparente que cubre toda la tarjeta */
+.viaje-card .modal-reseña-fondo  {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  border-radius: 8px; /* coincide con el border-radius de .viaje-card */
+}
+
+/* Contenido interior del modal */
+.viaje-card .modal-reseña-contenido {
+  background: #fff;
+  border-radius: 8px;
+  padding: 16px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Título opcional del modal */
+.viaje-card .modal-reseña-contenido h4 {
+  margin: 0 0 12px;
+  font-size: 1.25rem;
+  color: #007bff;
+}
+
+/* Selector de puntuación */
+.viaje-card .modal-reseña-contenido label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: #333;
+}
+
+.viaje-card .modal-reseña-contenido select {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: white;
+  margin-top: 4px;
+}
+
+/* Textarea para comentario */
+.viaje-card .modal-reseña-contenido textarea {
+  width: 100%;
+  height: 100px;
+  padding: 8px 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+  margin-bottom: 12px;
+  box-sizing: border-box;
+}
+
+/* Botones dentro del modal */
+.viaje-card .modal-reseña-contenido .botones-reseña {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* Botón “Enviar reseña” */
+.viaje-card .modal-reseña-contenido .btn-enviar-reseña {
+  padding: 8px 14px;
+  font-size: 0.95rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.viaje-card .modal-reseña-contenido .btn-enviar-reseña:hover {
+  background-color: #0056b3;
+}
+
+
+.viaje-card {
+  position: relative;    /* ya lo tienes */
+  overflow: hidden;      /* ¡muy importante! */
+}
+
+/* 2) La capa de reseñas debe ocupar toda la tarjeta y scroll si hay exceso */
+.viaje-card .modal-reseñas-fondo {
+  position: absolute;
+  inset: 0;              /* equivale a top:0; right:0; bottom:0; left:0 */
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 16px;
+  background: rgba(0,0,0,0.4);
+  padding: 16px;
+  box-sizing: border-box;
+  overflow-y: auto;      /* activa scroll interno */
+  z-index: 10;
+}
+
+
+.viaje-card .modal-reseñas-fondo > button{
+  background-color: #007bff;
+}
+
+
+.resena-rating {
+  font-size: 1rem;
+  color: #FFD700; /* dorado */
+  letter-spacing: 1px;
+}
+
+@media (max-width: 480px) {
+  /* Ajustar el modal para pantallas muy pequeñas */
+  .viaje-card .modal-reseña-contenido {
+    width: 95%;
+    max-width: none;
+    padding: 12px;
+  }
+  .viaje-card .modal-reseña-contenido h4 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+  .viaje-card .modal-reseña-contenido textarea {
+    height: 80px;
+  }
+  .viaje-card .modal-reseña-contenido .botones-reseña {
+    flex-direction: column;
+    gap: 6px;
+  }
+  .viaje-card .modal-reseña-contenido .btn-enviar-reseña,
+  .viaje-card .modal-reseña-contenido .btn-cancelar-reseña {
+    width: 100%;
+    padding: 6px 0;
+    font-size: 0.9rem;
+  }
+}

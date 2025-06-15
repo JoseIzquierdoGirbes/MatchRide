@@ -1,0 +1,180 @@
+<div class="inicio-container">
+
+
+    <header class="banner">
+        <div class="banner-left">
+            <h1 class="titulo-app">MatchRide</h1>
+        </div>
+
+        <div class="banner-right">
+            <div class="perfil-wrapper" *ngIf="usuario">
+                <div class="perfil-usuario" (click)="collapsed.set(!collapsed())">
+                    <img [src]="usuario.fotoPerfil" alt="Foto de perfil" class="foto-perfil" />
+                    <p class="nombre-usuario">{{ usuario.username }}</p>
+                </div>
+
+                <div *ngIf="collapsed()" class="menu-dropdown">
+                    <a [routerLink]="['/perfil']" class="opcion-menu">Perfil</a>
+                    <a (click)="signOut()" class="opcion-menu">Cerrar Sesión</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-layout">
+        <section class="contenido">
+            <div class="admin-container">
+                <h2>Panel de Administración</h2>
+
+
+                <section class="admin-section">
+                    <h3>Gestión de Usuarios</h3>
+                    <table class="tabla-usuarios">
+                        <thead>
+                            <tr>
+                                <th>Avatar</th>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Rol</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of usuarios">
+                                <td>
+                                    <img [src]="user.fotoPerfil" class="avatar-pequeño" />
+                                </td>
+                                <td>{{ user.username }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.rol }}</td>
+                                <td>
+                                    <ng-container *ngIf="usuario?.rol === 'administrador'">
+                                        <button type="button" (click)="cambiarRol(user)"
+                                            *ngIf="user.rol !== 'administrador'">
+                                            {{ user.rol === 'admin' ? 'Quitar Admin' : 'Hacer Admin' }}
+                                        </button>
+                                    </ng-container>
+                                    <button type="button" (click)="eliminarUsuario(user)"
+                                        *ngIf="user.rol !== 'administrador'">
+                                        Eliminar
+                                    </button>
+                                    <button type="button" (click)="eliminarTodoUser(user)"
+                                        *ngIf="user.rol !== 'administrador'">
+                                        Eliminar Todo
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <!-- Sección 2: Viajes -->
+                <section class="admin-section">
+                    <h3>Gestión de Viajes</h3>
+                    <table class="tabla-viajes">
+                        <thead>
+                            <tr>
+                                <th>Partido</th>
+                                <th>Organizador</th>
+                                <th>Fecha</th>
+                                <th>Plazas</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let viaje of todosLosViajes">
+                                <td>{{ viaje.partido }}</td>
+                                <td>{{ viaje.organizadorUsername }}</td>
+                                <td>{{ viaje.fecha | date:'dd/MM/yyyy HH:mm' }}</td>
+                                <td>{{ viaje.plazasDisponibles }}</td>
+                                <td>
+                                    <button (click)="eliminarViaje(viaje.id)">Eliminar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <!-- Sección 3: Reservas -->
+                <section class="admin-section">
+                    <h3>Gestión de Reservas</h3>
+                    <table class="tabla-reservas">
+                        <thead>
+                            <tr>
+                                <th>Usuario</th>
+                                <th>Viaje</th>
+                                <th>Fecha Reserva</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let reserva of todasLasReservas">
+                                <td>{{ reserva.usuarioUsername }}</td>
+                                <td>{{ reserva.viajePartido }}</td>
+                                <td>{{ reserva.fecha | date:'dd/MM/yyyy HH:mm' }}</td>
+                                <td>{{ reserva.estado }}</td>
+                                <td>
+                                    <button (click)="eliminarReserva(reserva.id)">
+                                        eliminar
+                                    </button>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <!-- Sección 4: Gestión de Reseñas -->
+                <section class="admin-section">
+                    <h3>Gestión de Reseñas</h3>
+                    <table class="tabla-resenas">
+                        <thead>
+                            <tr>
+                                <th>Usuario</th>
+                                <th>Viaje</th>
+                                <th>Fecha</th>
+                                <th>Puntuación</th>
+                                <th>Comentario</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let r of todasLasResenas">
+                                <td>{{ r.resenadorUsername }}</td>
+                                <td>{{ r.viajePartido }}</td>
+                                <td>{{ r.fecha | date:'dd/MM/yyyy HH:mm' }}</td>
+                                <td>{{ r.calificacion }}</td>
+                                <td class="comentario-cell">{{ r.comentario }}</td>
+                                <td>
+                                    <button (click)="eliminarResena(r)">Eliminar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <!-- Sección 4: Reportes / Estadísticas -->
+                <section class="admin-section">
+                    <h3>Reportes Rápidos</h3>
+                    <p>Usuarios registrados: {{ totalUsuarios }}</p>
+                    <p>Viajes publicados: {{ totalViajes }}</p>
+                    <p>Reservas activas: {{ totalReservasActivas }}</p>
+                    <p>Reseñas publicadas: {{totalResenas}}</p>
+                    <!-- Aquí podrías agregar un gráfico con Recharts, Chart.js, etc. -->
+                </section>
+            </div>
+
+
+        </section>
+
+        <aside class="sidebar">
+            <ul>
+                <li><a [routerLink]="['/inicio']">Inicio</a></li>
+                <li><a [routerLink]="['/crearviaje']">Publicar viaje</a></li>
+                <li><a [routerLink]="['/viajespublicados']">Viajes publicados</a></li>
+
+            </ul>
+        </aside>
+    </main>
+
+</div>

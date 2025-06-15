@@ -1,0 +1,103 @@
+/* Tarjeta individual de reseña */
+.resena-card {
+  display: flex;
+  gap: 16px;
+  padding: 8px;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  margin-bottom: 16px;
+}
+
+/* Avatar del autor de la reseña */
+.resena-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #007bff;
+  flex-shrink: 0;
+}
+
+/* Contenedor de todo el contenido textual */
+.resena-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Encabezado: contiene nombre, fecha y puntuación */
+.resena-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+/* Nombre de usuario */
+.resena-username {
+  font-weight: 600;
+  color: #007bff;
+  margin-right: 8px;
+}
+
+/* Fecha de la reseña */
+.resena-date {
+  font-size: 0.85rem;
+  color: #666;
+  margin-right: auto;
+}
+
+/* Estrellas de puntuación */
+.resena-rating {
+  font-size: 1rem;
+  color: #FFD700; /* dorado */
+  letter-spacing: 1px;
+}
+
+/* Cuerpo de comentario */
+.resena-body {
+  font-size: 0.9rem;
+  color: #333;
+  line-height: 1.4;
+  white-space: pre-wrap; /* conserva saltos de línea */
+}
+
+@media (max-width: 480px) {
+  .resena-card {
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .resena-avatar {
+    width: 48px;
+    height: 48px;
+    border-width: 1px;
+  }
+
+  .resena-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    margin-bottom: 6px;
+  }
+
+  .resena-username {
+    font-size: 1rem;
+    margin-right: 0;
+  }
+
+  .resena-date {
+    font-size: 0.75rem;
+    margin-right: 0;
+  }
+
+  .resena-rating {
+    font-size: 0.9rem;
+  }
+
+  .resena-body {
+    font-size: 0.85rem;
+  }
+}

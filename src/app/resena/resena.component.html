@@ -1,0 +1,16 @@
+<div class="resena-card">
+  <img class="resena-avatar" [src]="usuario?.fotoPerfil" alt="{{ usuario?.username }}" />
+  <div class="resena-content">
+    <div class="resena-header">
+      <span class="resena-username">{{ usuario?.username }}</span>
+      <span class="resena-date">{{ resena.fecha | date:'dd/MM/yyyy' }}</span>
+      <span class="resena-rating">
+        {{ '★'.repeat(resena.calificacion) + '☆'.repeat(5 - resena.calificacion) }}
+      </span>
+    </div>
+    <div class="resena-body">{{ resena.comentario }}</div>
+  </div>
+ <button *ngIf="reservasuser" class="btn-cancelar-reseña" (click)="eliminarResena()">
+    🗑️
+  </button>
+</div>

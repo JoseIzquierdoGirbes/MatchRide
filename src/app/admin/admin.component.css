@@ -1,0 +1,468 @@
+/* --- Layout principal --- */
+.inicio-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* --- Banner superior --- */
+.banner {
+  display: flex;
+  justify-content: space-between;
+  /* separa izquierda y derecha */
+  align-items: center;
+  padding: 1rem;
+  background-color: #007bff;
+  color: white;
+  gap: 1rem;
+}
+
+.banner-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+}
+
+.titulo-app {
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+
+.perfil-usuario {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: right;
+  gap: 4px;
+  color: white;
+}
+
+.foto-perfil {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+}
+
+.nombre-usuario {
+  font-size: 30px;
+  font-weight: 500;
+  margin: 0;
+}
+
+
+.btn-iniciar-sesion {
+  padding: 8px 12px;
+  background-color: white;
+  color: #007bff;
+  border: 1px solid #007bff;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.btn-iniciar-sesion:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+
+
+
+
+
+
+
+
+
+.main-layout {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 80px);
+}
+
+
+.contenido {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+
+.sidebar {
+  width: 200px;
+  background-color: #f5f5f5;
+  padding: 1rem;
+  box-shadow: -4px 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  margin-bottom: 1rem;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.sidebar a:hover {
+  color: #007bff;
+}
+
+.perfil-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.menu-dropdown {
+  position: absolute;
+  top: 0;
+  right: 100%;
+  /* lo coloca a la izquierda del perfil */
+  transform: translateX(-10px);
+  /* un poco más separado */
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  padding: 0.5rem 0;
+  min-width: 150px;
+}
+
+.opcion-menu {
+  display: block;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.opcion-menu:hover {
+  background-color: #f0f0f0;
+}
+
+
+
+
+/* Contenedor general del panel admin */
+.admin-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Cada sección (Usuarios, Viajes, Reservas, Reportes) */
+.admin-section {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Títulos de sección */
+.admin-section h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: #007bff;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 0.25rem;
+}
+
+/* Regla general para tablas dentro del admin */
+.admin-section table {
+
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Roboto, sans-serif;
+}
+
+/* Encabezados de tabla */
+.admin-section thead th {
+  background-color: #007bff;
+  color: #fff;
+  text-align: left;
+  padding: 0.75rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-bottom: 2px solid #0056b3;
+}
+
+/* Celdas de cuerpo de tabla */
+.admin-section tbody td {
+  padding: 0.65rem 0.75rem;
+  color: #333;
+  font-size: 0. nine rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* Filas alternas para mayor legibilidad */
+.admin-section tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Hover sobre filas */
+.admin-section tbody tr:hover {
+  background-color: #eef6ff;
+}
+
+/* Imágenes de avatar en la tabla de usuarios */
+.avatar-pequeño {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #007bff;
+}
+
+/* Botones dentro de las tablas */
+.admin-section button {
+  background-color: transparent;
+  border: 1px solid #007bff;
+  color: #007bff;
+  padding: 0.35rem 0.6rem;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+/* Estado “aceptado” inhabilita el botón */
+.admin-section button[disabled] {
+  background-color: #ccc;
+  border-color: #aaa;
+  color: #666;
+  cursor: not-allowed;
+}
+
+/* Hover en botones activos */
+.admin-section button:not([disabled]):hover {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Ajustes específicos para cada tabla (si quieres anchos concretos) */
+.tabla-usuarios th:nth-child(1),
+.tabla-usuarios td:nth-child(1) {
+  width: 60px;
+  /* avatar */
+}
+
+.tabla-usuarios th:nth-child(2),
+.tabla-usuarios td:nth-child(2) {
+  width: 25%;
+}
+
+.tabla-viajes th:nth-child(1),
+.tabla-viajes td:nth-child(1) {
+  width: 30%;
+}
+
+.tabla-viajes th:nth-child(4),
+.tabla-viajes td:nth-child(4) {
+  width: 10%;
+  /* plazas */
+}
+
+.tabla-reservas th:nth-child(1),
+.tabla-reservas td:nth-child(1) {
+  width: 20%;
+}
+
+/* Hacer las tablas responsivas: contenedor con scroll horizontal */
+.admin-section table {
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+/* Para que el scroll horizontal no tape el encabezado, opcional */
+.admin-section table thead {
+  position: sticky;
+  top: 0;
+}
+
+.tabla-resenas {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Roboto, sans-serif;
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+  margin-bottom: 1rem;
+}
+
+.tabla-resenas thead th {
+  background-color: #007bff;
+  color: #fff;
+  padding: 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-bottom: 2px solid #0056b3;
+}
+
+.tabla-resenas tbody td {
+  padding: 0.65rem 0.75rem;
+  color: #333;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.tabla-resenas tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.tabla-resenas tbody tr:hover {
+  background-color: #eef6ff;
+}
+
+/* Ajusta el ancho de la columna de comentario */
+.comentario-cell {
+  max-width: 300px;
+  white-space: normal; /* permite salto de línea */
+}
+
+/* Botón eliminar reseña */
+.tabla-resenas button {
+  background: transparent;
+  border: 1px solid #c00;
+  color: #c00;
+  padding: 4px 8px;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+.tabla-resenas button:hover {
+  background-color: #c00;
+  color: white;
+}
+
+/* === Responsive para pantallas pequeñas (ej. <768px) === */
+@media (max-width: 768px) {
+
+  /* 1. Banner: título y foto en la misma línea, centrados verticalmente */
+  .banner {
+    display: flex;
+    flex-wrap: nowrap;
+    /* que no “salte” a segunda línea */
+    justify-content: space-between;
+    /* título a la izquierda, foto a la derecha */
+    align-items: center;
+    /* alineados verticalmente */
+    padding: 0.75rem 1rem;
+  }
+
+  .titulo-app {
+    font-size: 2rem;
+    /* reducimos un poco para que quepa mejor */
+    margin: 0;
+    /* eliminar márgenes extra */
+  }
+
+  .banner-right {
+    /* simple contenedor flex para la foto */
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 1rem;
+  }
+
+  /* 2. Sacamos la “sidebar” (enlaces) para que quede justo debajo del banner,
+        y la ponemos en fila en lugar de columna */
+  .main-layout {
+    display: flex;
+    flex-direction: column;
+    /* primero banner, luego “sidebar”, luego contenido */
+    height: auto;
+    /* que calcule su altura por el contenido */
+  }
+
+    .sidebar {
+    order: 1;
+    width: 100%;
+    background-color: #f5f5f5;
+    box-shadow: none; /* quitamos la sombra lateral para que quede más limpio */
+    padding: 0.5rem 1rem;
+    box-sizing: border-box;
+  }
+  .sidebar ul {
+    display: flex;
+    flex-direction: row;      /* enlaces en línea */
+    flex-wrap: wrap;          /* si no caben todos, pasan a la siguiente línea */
+    justify-content: space-around;
+    gap: 0.5rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  .sidebar li {
+    margin: 0;
+  }
+  .sidebar a {
+    display: inline-block;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.95rem;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .sidebar a:hover {
+    color: #007bff;
+  }
+
+  /* 3. Contenido principal debajo de la “sidebar” */
+  .contenido {
+    order: 2;
+    padding: 1rem;
+    /* menos padding para móvil */
+  }
+
+  /* 4. Ajuste de tablas para que entren mejor en ancho reducido */
+  .admin-section table {
+    font-size: 0.85rem;
+  }
+
+  .admin-section table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .admin-section table thead {
+    position: sticky;
+    top: 0;
+    background-color: #007bff;
+    /* rehacer fondo si fuese necesario */
+    color: #fff;
+  }
+}

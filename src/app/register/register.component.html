@@ -1,0 +1,48 @@
+<div class="center-page">
+    <div class="form-container">
+      <div class="titulo">
+        <h2>Registro</h2>
+      </div>
+      
+  
+      <form (ngSubmit)="registrarse()" [formGroup]="form">
+  
+  
+        <div>
+          <label for="email">Email</label>
+          <input type="email" id="email" formControlName="email" />
+          <p class="errorfield" *ngIf="form.controls.email.hasError('pattern')">
+            Debe ser un formato de email válido
+          </p>
+          <p class="errorfield" *ngIf="emailExiste">
+            Este email ya está registrado, por favor pon otro o inicia sesión
+          </p>
+        </div>
+  
+        <!-- Campo de Fecha de Asignación -->
+        <div>
+          <label for="contrasena">Contraseña</label>
+          <input type="password" id="contrasena" formControlName="contrasena" />
+          <p class="errorfield" *ngIf="form.controls.contrasena.hasError('pattern')">
+            Debe tener como mínimo 6 caracteres, una mayúscula y un carácter especial
+          </p>
+        </div>
+  
+        <div>
+          <label for="confcontrasena">Confirmar Contraseña</label>
+          <input type="password" id="confcontrasena" formControlName="confcontrasena"
+            [ngClass]="{ 'noiguales': form.hasError('noiguales')}" />
+          @if(form.hasError('noiguales')){
+          <p class="errorfield">Las contraseñas deben de ser iguales</p>
+          }
+          
+        </div>
+        <div>
+          <button type="submit">
+            Guardar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

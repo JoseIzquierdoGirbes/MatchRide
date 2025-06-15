@@ -1,0 +1,44 @@
+<div class="reserva-card">
+  <div class="reserva-detalles" *ngIf="!reservasuser">
+    <img class="reserva-avatar" [src]="usuario?.fotoPerfil" alt="Avatar {{ usuario?.username }}" />
+
+
+    <span class="reserva-usuario">{{ usuario?.username }}</span>
+    <span class="reserva-estado">{{ reserva.estado | titlecase }}</span>
+
+  </div>
+
+
+
+  <div class="reserva-acciones">
+
+    <ng-container *ngIf="!reservasuser">
+      <button *ngIf="reserva.estado === 'pendiente'" class="btn aceptar" (click)="aceptarReserva()">
+        ✔️
+      </button>
+      <button *ngIf="reserva.estado === 'pendiente'" class="btn rechazar" (click)="rechazarReserva()">
+        ❌
+      </button>
+      <button *ngIf="reserva.estado === 'aceptada'" class="btn rechazar" (click)="cancelarReserva()">
+        ❌
+      </button>
+    </ng-container>
+  </div>
+
+  <ng-container *ngIf="reservasuser">
+    <div class="reserva-detalles">
+      <span class="reserva-estado">{{ reserva.estado | titlecase }}</span>
+    </div>
+    <div class="reserva-acciones">
+
+      <button *ngIf="reserva.estado == 'aceptada'" type="button" class="btn cancelar" (click)="cancelarReserva()">
+        ❌
+      </button>
+
+      <button *ngIf="reserva.estado == 'pendiente'" type="button" class="btn cancelar" (click)="rechazarReserva()">
+        ❌
+      </button>
+    </div>
+  </ng-container>
+
+</div>

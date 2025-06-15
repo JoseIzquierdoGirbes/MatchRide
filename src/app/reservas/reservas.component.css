@@ -1,0 +1,263 @@
+/* --- Layout principal --- */
+.inicio-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  /* --- Banner superior --- */
+  .banner {
+    display: flex;
+    justify-content: space-between; /* separa izquierda y derecha */
+    align-items: center;
+    padding: 1rem;
+    background-color: #007bff;
+    color: white;
+    gap: 1rem;
+  }
+  
+  .banner-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .logo {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .titulo-app {
+    font-size: 3rem;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+ 
+  .perfil-usuario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: right;
+    gap: 4px;
+    color: white;
+  }
+  
+  .foto-perfil {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+  }
+  
+  .nombre-usuario {
+    font-size: 30px;
+    font-weight: 500;
+    margin: 0;
+  }
+  
+
+  .btn-iniciar-sesion {
+    padding: 8px 12px;
+    background-color: white;
+    color: #007bff;
+    border: 1px solid #007bff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+  }
+  
+  .btn-iniciar-sesion:hover {
+    background-color: #007bff;
+    color: white;
+  }
+
+  .main-layout {
+    display: flex;
+    flex-direction: row;
+    height: calc(100vh - 80px); 
+  }
+  
+
+  .contenido {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+  }
+  
+ 
+  .sidebar {
+    width: 200px;
+    background-color: #f5f5f5;
+    padding: 1rem;
+    box-shadow: -4px 0 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .sidebar li {
+    margin-bottom: 1rem;
+  }
+  
+  .sidebar a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+  
+  .sidebar a:hover {
+    color: #007bff;
+  }
+  .perfil-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .menu-dropdown {
+    position: absolute;
+    top: 0;
+    right: 100%; /* lo coloca a la izquierda del perfil */
+    transform: translateX(-10px); /* un poco más separado */
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    padding: 0.5rem 0;
+    min-width: 150px;
+  }
+  
+  .opcion-menu {
+    display: block;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: background-color 0.3s;
+  }
+  
+  .opcion-menu:hover {
+    background-color: #f0f0f0;
+  }
+  .viajes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 4rem;                              
+  width: 100%;                            
+  box-sizing: border-box;
+  padding: 1rem;                          
+}
+
+
+.viajes-grid app-viaje {
+  width: 100%;
+  display: block;
+}
+
+
+
+/* === Responsive (<768px) === */
+@media (max-width: 768px) {
+  /* 1) Banner: ocupar todo el ancho, título más pequeño, perfil a la derecha */
+  .banner {
+    display: flex;
+    width: 100%;
+    justify-content: space-between; 
+    align-items: center;
+    padding: 0.75rem 1rem;
+    box-sizing: border-box;
+  }
+  .titulo-app {
+    font-size: 2rem; /* antes era 3rem */
+    margin: 0;
+  }
+  
+  /* Ajustamos ligeramente el perfil para que no crezca demasiado */
+  .perfil-usuario {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .foto-perfil {
+    width: 60px;
+    height: 60px;
+    border: 2px solid white;
+  }
+  .nombre-usuario {
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  /* 2) Main-layout pasa a columna */
+  .main-layout {
+    display: flex;
+    flex-direction: column;
+    height: auto; /* ya no calc(100vh - 80px) */
+  }
+
+  /* 3) Sidebar baja debajo del banner (order:1) y ocupa 100% */
+  .sidebar {
+    order: 1;
+    width: 100%;
+    background-color: #f5f5f5;
+    box-shadow: none; /* quitamos la sombra lateral para que quede más limpio */
+    padding: 0.5rem 1rem;
+    box-sizing: border-box;
+  }
+  .sidebar ul {
+    display: flex;
+    flex-direction: row;      /* enlaces en línea */
+    flex-wrap: wrap;          /* si no caben todos, pasan a la siguiente línea */
+    justify-content: space-around;
+    gap: 0.5rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  .sidebar li {
+    margin: 0;
+  }
+  .sidebar a {
+    display: inline-block;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.95rem;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .sidebar a:hover {
+    color: #007bff;
+  }
+
+  /* 4) Contenido viene después de la sidebar (order:2) */
+  .contenido {
+    order: 2;
+    padding: 1rem;         /* menos padding que en desktop */
+    box-sizing: border-box;
+  }
+
+  /* 5) Cambiamos .viajes-grid para que sea una sola columna */
+  .viajes-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* 1 columna en móvil */
+    gap: 2rem;                  /* reducimos un poco el gap */
+    padding: 0;                 /* ya no necesitan padding extra */
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .viajes-grid app-viaje {
+    width: 100%;
+    display: block;
+  }
+}

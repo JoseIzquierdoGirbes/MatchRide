@@ -1,0 +1,97 @@
+<div class="viaje-card">
+  <button type="submit" *ngIf="reservasuser==false && viajePublicado==true" class="delete-icon"
+    (click)="eliminarviaje()" title="Eliminar viaje"> 🗑️</button>
+  <div class="organizador" *ngIf="usuario && viajePublicado==false">
+    <img class="organizador-avatar" [src]="usuario.fotoPerfil" alt="Avatar {{ usuario.username }}" />
+    <span class="organizador-nombre">{{ usuario.username }}</span>
+    <span class="resena-rating">
+        {{ '★'.repeat(usuario.calificacionPromedio) + '☆'.repeat(5 - usuario.calificacionPromedio) }}
+      </span> <a>({{usuario.numresenas}})</a>
+  </div>
+  <div class="organizador" *ngIf="usuario && reservasuser==true">
+    <img class="organizador-avatar" [src]="usuario.fotoPerfil" alt="Avatar {{ usuario.username }}" />
+    <span class="organizador-nombre">{{ usuario.username }}</span>
+  </div>
+  <h3>{{ viaje.partido }}</h3>
+  <p><strong>Publicado:</strong> {{ viaje.fechaPublicacion| date:'dd/MM/yyyy' }}</p>
+  <p><strong>Fecha de salida:</strong> {{ viaje.fecha | date:'dd/MM/yyyy HH:mm' }}</p>
+  <p><strong>Usuario aficionado del:</strong>{{viaje.equipo}}</p>
+  <div class="ubicaciones">
+    <div>
+      <h4>Salida</h4>
+      <p>{{ viaje.ubicacionSalida.ciudad }}</p>
+      <p>{{ viaje.ubicacionSalida.direccion }}</p>
+      <app-mapa [center]="centerSalida" [zoom]="zoom" [markers]="markersSalida">
+      </app-mapa>
+
+    </div>
+    <div>
+      <h4>Llegada</h4>
+      <p>{{ viaje.ubicacionLlegada.ciudad }}</p>
+      <p>{{ viaje.ubicacionLlegada.direccion }}</p>
+      <app-mapa [center]="centerLlegada" [zoom]="zoom" [markers]="markersLlegada">
+      </app-mapa>
+    </div>
+  </div>
+  <p><strong>Precio:</strong> €{{ viaje.precioPorPersona }}</p>
+  <p><strong>Plazas:</strong> {{ viaje.plazasDisponibles }}</p>
+
+  <div *ngIf="viaje.plazasDisponibles>0 && reservasuser==false">
+    <button type="button" (click)="reservar()" *ngIf="!viajePublicado">reservar</button>
+  </div>
+
+  <div *ngIf="viajepasado==false">
+    <div *ngIf="reservas.length>0||reservasuser==true">
+      <div *ngIf="reservasuser!=true">
+        <P>Reservas:</P>
+      </div>
+      <app-reserva *ngFor="let reserva of reservas" [reserva]="reserva" [reservasuser]="reservasuser"></app-reserva>
+    </div>
+  </div>
+
+
+  <button *ngIf="mostrarbotonresena" class="btn-poner-reseña" (click)="abrirFormResena()">
+    Poner reseña
+  </button>
+
+  <button *ngIf="reservasuser && !mostrarbotonresena && viaje.inactivo" class="btn-poner-reseña" (click)="verResenas()">
+    ver mi  reseña
+  </button>
+
+   <button *ngIf="!reservasuser " class="btn-poner-reseña" (click)="verResenas()">
+    ver reseñas
+  </button>
+
+  <div *ngIf="verresenas" class="modal-reseñas-fondo">
+    <button (click)="cerrarresenas()"> cerrar</button>
+    <app-resena *ngFor="let resena of resenas" [resena]="resena" [reservasuser]="reservasuser" ></app-resena>
+  </div>
+
+
+
+  <div *ngIf="activarresena" class="modal-reseña-fondo">
+    <div class="modal-reseña-contenido">
+      <h4>Dejar reseña</h4>
+
+      <label>
+        ⭐️ Puntuación:
+        <select [(ngModel)]="puntuacionResena">
+          <option *ngFor="let n of [1,2,3,4,5]" [ngValue]="n">{{ n }}</option>
+        </select>
+      </label>
+
+      <textarea [(ngModel)]="comentarioResena" placeholder="Escribe tu opinión..."></textarea>
+
+      <div class="botones-reseña">
+        <button class="btn-enviar-reseña" (click)="guardarResena()">
+          Enviar reseña
+        </button>
+         <button class="btn-enviar-reseña" (click)="cerarCrearResena()">
+          cerrar
+        </button>
+
+
+      </div>
+    </div>
+  </div>
+</div>

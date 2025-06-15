@@ -1,0 +1,50 @@
+<div class="inicio-container">
+
+  <header class="banner">
+    <div class="banner-left">
+      <h1 class="titulo-app">MatchRide</h1>
+    </div>
+
+    <div class="perfil-wrapper" *ngIf="usuario">
+      <div class="perfil-usuario" (click)="collapsed.set(!collapsed())">
+        <img [src]="usuario.fotoPerfil" alt="Foto de perfil" class="foto-perfil" />
+        <p class="nombre-usuario">{{ usuario.username }}</p>
+      </div>
+
+      <div *ngIf="collapsed()" class="menu-dropdown">
+        <a href="" [routerLink]="['/perfil']" class="opcion-menu">Perfil</a>
+        <a (click)="signOut()" class="opcion-menu">Cerrar Sesión</a>
+      </div>
+    </div>
+    <div class="perfil-usuario" *ngIf="!usuario">
+      <button [routerLink]="['/login']" class="btn-iniciar-sesion">
+        Iniciar sesión
+      </button>
+    </div>
+
+
+  </header>
+
+  <main class="main-layout">
+    <section class="contenido">
+      <div class="viajes-grid">
+        <app-viaje *ngFor="let viaje of viajesReservados" [viaje]="viaje" [reservasuser]="true">
+        </app-viaje>
+      </div>
+
+    </section>
+
+    <aside class="sidebar">
+      <ul>
+        <li><a [routerLink]="['/inicio']">Inicio</a></li>
+        <li><a [routerLink]="['/crearviaje']">Publicar viaje</a></li>
+        <li><a [routerLink]="['/viajespublicados']">Viajes publicados</a></li>
+        <li *ngIf="usuario?.rol === 'administrador' || usuario?.rol === 'admin'">
+          <a routerLink="/admin">Panel Administrador</a>
+        </li>
+
+      </ul>
+    </aside>
+  </main>
+
+</div>

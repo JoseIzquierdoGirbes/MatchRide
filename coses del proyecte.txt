@@ -1,0 +1,53 @@
+12345!Q
+urls:
+logica inicio de sesion:
+https://dev.to/this-is-angular/firebase-authentication-with-angular-19-ief
+formulario de registro con validadores:
+https://www.youtube.com/watch?v=83Cg94Zfh_c&ab_channel=CodeScript
+Validador comparar contraseñas:
+https://v17.angular.io/guide/form-validation#adding-cross-validation-to-reactive-forms
+crud en firestore:
+https://firebase.google.com/docs/firestore/manage-data/add-data?hl=es-419
+https://firebase.google.com/docs/firestore/query-data/get-data?hl=es-419
+subir imagenes:
+http://youtube.com/watch?v=gUCvOZzAXGg
+menuimagenperfil:
+https://www.youtube.com/watch?v=WFHS3fcH7vg&ab_channel=AlonsoNava min 00:58:00-01:06:38
+
+usuarios: {
+  "nombre": "Juan Pérez",
+  "email": "juan@example.com",
+  "equipofavorito": "FcBarcelona",
+  "fotoPerfil": "url",
+  "calificacionPromedio": 4.8
+}
+
+viajes: 
+{
+  "partido": "Real Madrid vs Barcelona",
+  "fecha": "2025-04-20T18:00:00Z",
+  "ciudadSalida": "Valencia",
+  "lugarSalida": "Estación Norte",
+  "precioPorPersona": 25,
+  "plazasDisponibles": 10,
+  "organizadorId": "userId123",
+  "estadio": "Santiago Bernabéu",
+  "ubicacion": { "lat": ..., "lng": ... } // para geolocalización
+}
+
+reservas {
+  "viajeId": "viaje123",
+  "usuarioId": "user456",
+  "cantidad": 2,
+  "estado": "confirmada" | "pendiente" | "cancelada",
+  "fechaReserva": "2025-03-25T12:00:00Z"
+}
+calificaciones{
+  "viajeId": "viaje123",
+  "usuarioId": "user456",
+  "calificadoId": "user123",
+  "puntuacion": 5,
+  "comentario": "Buen conductor, todo a tiempo",
+  "fecha": "2025-03-25T20:00:00Z"
+}
+
