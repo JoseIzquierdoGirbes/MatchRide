@@ -72,7 +72,6 @@ export class CrearusuarioComponent {
         this.usernameExiste = false;
 
         for (const u of usuarios) {
-          console.log(u, usuario.username);
           if (u.username == usuario.username) {
             this.usernameExiste = true;
             break;
@@ -80,9 +79,7 @@ export class CrearusuarioComponent {
         }
 
         if (!this.usernameExiste) {
-          console.log("es correcto");
           this.userService.save(usuario).then(() => {
-            console.log('Usuario guardado exitosamente');
             this.router.navigate(['/inicio']);
           }).catch(err => {
             console.error('Error al guardar usuario:', err);
@@ -98,7 +95,6 @@ export class CrearusuarioComponent {
   uploadFile(event: any) {
     const input = event.target as HTMLInputElement;
     this.archivoSeleccionado =event.target.files[0];
-    console.log(this.archivoSeleccionado);
   }
 
   async cargarEquipos() {

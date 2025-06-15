@@ -34,7 +34,6 @@ export class CrearviajeComponent {
     this.authService.user$.subscribe(async (user) => {
       if (user) {
         this.usuario = await this.userservice.getById(user.uid);
-        console.log(this.usuario);
       } else {
         this.router.navigate(['/inicio']);
       }

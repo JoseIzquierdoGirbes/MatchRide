@@ -40,7 +40,7 @@
         <li><a [routerLink]="['/crearviaje']">Publicar viaje</a></li>
         <li><a [routerLink]="['/viajespublicados']">Viajes publicados</a></li>
         <li *ngIf="usuario?.rol === 'administrador' || usuario?.rol === 'admin'">
-          <a routerLink="/admin">Panel Administrador</a>
+          <a [routerLink]="['/admin']">Panel Administrador</a>
         </li>
 
       </ul>

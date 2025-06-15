@@ -68,7 +68,6 @@
                     </table>
                 </section>
 
-                <!-- Sección 2: Viajes -->
                 <section class="admin-section">
                     <h3>Gestión de Viajes</h3>
                     <table class="tabla-viajes">
@@ -78,6 +77,7 @@
                                 <th>Organizador</th>
                                 <th>Fecha</th>
                                 <th>Plazas</th>
+                                <th>Inactivo</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -87,6 +87,7 @@
                                 <td>{{ viaje.organizadorUsername }}</td>
                                 <td>{{ viaje.fecha | date:'dd/MM/yyyy HH:mm' }}</td>
                                 <td>{{ viaje.plazasDisponibles }}</td>
+                                <td>{{viaje.inactivo}}</td>
                                 <td>
                                     <button (click)="eliminarViaje(viaje.id)">Eliminar</button>
                                 </td>
@@ -95,7 +96,6 @@
                     </table>
                 </section>
 
-                <!-- Sección 3: Reservas -->
                 <section class="admin-section">
                     <h3>Gestión de Reservas</h3>
                     <table class="tabla-reservas">
@@ -124,7 +124,7 @@
                         </tbody>
                     </table>
                 </section>
-                <!-- Sección 4: Gestión de Reseñas -->
+               
                 <section class="admin-section">
                     <h3>Gestión de Reseñas</h3>
                     <table class="tabla-resenas">
@@ -153,14 +153,14 @@
                     </table>
                 </section>
 
-                <!-- Sección 4: Reportes / Estadísticas -->
+               
                 <section class="admin-section">
                     <h3>Reportes Rápidos</h3>
                     <p>Usuarios registrados: {{ totalUsuarios }}</p>
                     <p>Viajes publicados: {{ totalViajes }}</p>
                     <p>Reservas activas: {{ totalReservasActivas }}</p>
                     <p>Reseñas publicadas: {{totalResenas}}</p>
-                    <!-- Aquí podrías agregar un gráfico con Recharts, Chart.js, etc. -->
+                   
                 </section>
             </div>
 
@@ -172,6 +172,7 @@
                 <li><a [routerLink]="['/inicio']">Inicio</a></li>
                 <li><a [routerLink]="['/crearviaje']">Publicar viaje</a></li>
                 <li><a [routerLink]="['/viajespublicados']">Viajes publicados</a></li>
+                <li><a [routerLink]="['/reservas']">Mis reservas</a></li>
 
             </ul>
         </aside>

@@ -27,12 +27,37 @@
 
   <main class="main-layout">
     <section class="contenido">
+
+      <div class="filtros">
+
+        <label>
+          Origen:
+          <select [(ngModel)]="filtroSalida" (ngModelChange)="aplicarFiltros()">
+            <option value="">— Todas —</option>
+            <option *ngFor="let ciudad of ciudadesSalida" [value]="ciudad">{{ ciudad }}</option>
+          </select>
+        </label>
+        <label>
+          Destino:
+          <select [(ngModel)]="filtroLlegada" (ngModelChange)="aplicarFiltros()">
+            <option value="">— Todas —</option>
+            <option *ngFor="let ciudad of ciudadesLlegada" [value]="ciudad">{{ ciudad }}</option>
+          </select>
+        </label>
+        <label>
+          Fecha:
+          <input type="date" [(ngModel)]="filtroFecha" [min]="minDateTime" (ngModelChange)="aplicarFiltros()" />
+        </label>
+        <button type="button" class="btn-limpiar-filtros" (click)="limpiarfiltros()">Limpiar filtros</button>
+      </div>
+
       <div class="viajes-grid">
-        <app-viaje *ngFor="let viaje of viajes" [viaje]="viaje" [viajePublicado]="false" [reservasuser]="false">
+        <app-viaje *ngFor="let viaje of viajesFiltrados" [viaje]="viaje" [viajePublicado]="false"
+          [reservasuser]="false">
         </app-viaje>
       </div>
 
-      
+
     </section>
 
     <aside class="sidebar">
@@ -41,9 +66,9 @@
         <li><a [routerLink]="['/viajespublicados']">Viajes publicados</a></li>
         <li><a [routerLink]="['/reservas']">Mis reservas</a></li>
         <li *ngIf="usuario?.rol === 'administrador' || usuario?.rol === 'admin'">
-        <a routerLink="/admin">Panel Administrador</a>
+          <a routerLink="/admin">Panel Administrador</a>
         </li>
-       
+
       </ul>
     </aside>
   </main>

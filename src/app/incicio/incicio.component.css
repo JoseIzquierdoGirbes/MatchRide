@@ -164,6 +164,38 @@
   display: block;
 }
 
+.filtros {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.filtros select {
+  width: 8rem;          /* ancho fijo igual para todos */
+  padding: 0.3rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+.filtros input {
+  width: 8rem;          /* ancho fijo igual para todos */
+  padding: 0.3rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+.btn-limpiar-filtros {
+  padding: 0.4rem 0.8rem;
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.btn-limpiar-filtros:hover {
+  background: #c82333;
+}
+
 /* === Responsive (<768px) === */
 @media (max-width: 768px) {
   /* 1) Banner: ocupar todo el ancho, título más pequeño, perfil a la derecha */
@@ -257,5 +289,29 @@
   .viajes-grid app-viaje {
     width: 100%;
     display: block;
+  }
+   .filtros {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin: 0 auto 1rem;    /* centrar horizontalmente */
+    width: 90%;             /* ocupa el 90% del contenedor */
+    max-width: 360px;       /* no más ancho que 360px */
+  }
+
+  .filtros label {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .filtros select {
+    min-width: 140px;       /* asegúrate de que no queden muy estrechos */
+  }
+
+  .btn-limpiar-filtros {
+    width: 100%;            /* botón full-width dentro de .filtros */
+    padding: 0.6rem 0;
   }
 }

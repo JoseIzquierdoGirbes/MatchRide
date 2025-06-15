@@ -3,7 +3,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { AutenticationService } from '../services/autentication.service';
 import { UserService } from '../services/user.service';
 import { User } from '../interfaces/user';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ViajeComponent } from "../viaje/viaje.component";
@@ -15,7 +15,7 @@ import { first } from 'rxjs';
 
 @Component({
   selector: 'app-incicio',
-  imports: [FormsModule, CommonModule, RouterModule, ViajeComponent],
+  imports: [ReactiveFormsModule,FormsModule, CommonModule, RouterModule, ViajeComponent],
   templateUrl: './incicio.component.html',
   styleUrl: './incicio.component.css'
 })
@@ -31,8 +31,17 @@ export class IncicioComponent {
   collapsed = signal(false);
 
   viajes: Viaje[] = [];
-  viajesPublicados: Viaje[] = [];
+  viajesFiltrados: Viaje[] = [];
+ 
   proximosIds: string[] = [];
+
+  filtroSalida: string = '';
+  filtroLlegada: string = '';
+  filtroFecha= ''; 
+  ciudadesSalida:string[]=[];
+  ciudadesLlegada:string[]=[];
+
+   minDateTime!: string;
 
 
   constructor() {
@@ -40,16 +49,17 @@ export class IncicioComponent {
       if (user) {
         this.usuario = await this.userservice.getById(user.uid);
       }
-      this.viajeservice.getAll().subscribe({
-        next: lista => this.applyFilter(lista),
-        error: err => console.error('Error al cargar viajes', err)
+      
+      this.viajeservice.getAll().subscribe(lista=>{
+        this.filtrarlista(lista);
+        this.setMinDateTime();
       });
     });
 
 
 
   }
-  applyFilter(lista: Viaje[]) {
+  filtrarlista(lista: Viaje[]) {
     if (this.usuario) {
       this.viajes = lista.filter(v => v.organizadorId !== this.usuario!.uid);
 
@@ -57,12 +67,14 @@ export class IncicioComponent {
         const reservadosIds = new Set(reservas.map(r => r.viajeid));
         this.viajes = this.viajes.filter(v => !reservadosIds.has(v.id));
       })
-      this.filtrarHoraSalida(this.viajes);
-
+      
     } else {
       this.viajes = lista;
-      this.filtrarHoraSalida(this.viajes);
+    
     }
+    this.filtrarHoraSalida(this.viajes);
+    this.rellenarfiltros(this.viajes);
+    this.aplicarFiltros();
   }
 
   filtrarHoraSalida(listaviajes: Viaje[]) {
@@ -71,12 +83,6 @@ export class IncicioComponent {
 
     // 1. Separa los que faltan ≤ 1h
     const sininactivos = listaviajes.filter(v => v.inactivo !== true);
-    console.log(listaviajes.length);
-    console.log(listaviajes);
-    console.log(sininactivos.length);
-    sininactivos.forEach(element => {
-      console.log(element.fecha);
-    });
     const proximos = sininactivos.filter(v => {
       const diff = new Date(v.fecha).getTime() - ahora;
       return  diff <= UNA_HORA;
@@ -98,11 +104,54 @@ export class IncicioComponent {
     });
   }
 
+  rellenarfiltros(lista: Viaje[]){
+    const salidas = lista.map(v => v.ubicacionSalida.ciudad);
+  const llegadas = lista.map(v => v.ubicacionLlegada.ciudad);
+
+  
+  this.ciudadesSalida  = Array.from(new Set(salidas));
+  this.ciudadesLlegada = Array.from(new Set(llegadas));
+  }
+
+   aplicarFiltros() {
+   this.viajesFiltrados = this.viajes.filter(v => {
+      const okSalida  = !this.filtroSalida  || v.ubicacionSalida.ciudad  === this.filtroSalida;
+      const okLlegada = !this.filtroLlegada || v.ubicacionLlegada.ciudad === this.filtroLlegada;
+
+    let okFecha = true;
+    if (this.filtroFecha) {
+      // extraemos YYYY-MM-DD de la fecha ISO del viaje
+      const viajeYYYYMMDD = v.fecha.substring(0, 10);
+      okFecha = viajeYYYYMMDD === this.filtroFecha;
+    }
+
+      return okSalida && okLlegada && okFecha;
+    });
+  }
+
+
+  limpiarfiltros(){
+    this.filtroSalida  = '';
+    this.filtroLlegada = '';
+     this.filtroFecha   = '';
+    this.aplicarFiltros();
+  }
+
+   private setMinDateTime() {
+    const now = new Date();
+
+    
+    const pad = (n: number) => n.toString().padStart(2, '0');
+    const year   = now.getFullYear();
+    const month  = pad(now.getMonth() + 1);
+    const day    = pad(now.getDate());
+  
+    this.minDateTime = `${year}-${month}-${day}`;
+  }
 
   async signOut() {
     try {
       await this.authService.logout();
-      console.log('User signed out');
       location.reload();
     } catch (error) {
       console.error('Sign out error:', error);

@@ -8,10 +8,8 @@ import {
   signOut,
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
-  updateEmail,
   user,
-  User,
-  sendEmailVerification
+  User
 } from '@angular/fire/auth';
 import { getAuth, setPersistence } from 'firebase/auth';
 import { from, Observable } from 'rxjs';
@@ -46,24 +44,11 @@ export class AutenticationService {
     });
     return from(promise);
   }
- /* async updateEmailAddress(nuevoEmail: string): Promise<void> {
-    const user = this.firebaseAuth.currentUser;
-    if (user) {
-
-      updateEmail(user, nuevoEmail).then(() => {
-        // Email updated!
-        // ...
-      }).catch((error) => {
-        // An error occurred
-        // ...
-      });
-    }
-  }*/
 
   register(email: string, password: string) {
     const promise = createUserWithEmailAndPassword(this.firebaseAuth, email, password
     ).then(() => {
-      //
+      
     });
     return from(promise);
 

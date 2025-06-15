@@ -44,9 +44,8 @@ export class AdminComponent implements OnInit {
   viajeservice: ViajeService = inject(ViajeService);
   todasLasResenas: ResenaConExtra[] = [];
   totalResenas = 0;
-
-  // Inyecta el servicio de reseñas
   resenasService: ResenasService = inject(ResenasService);
+
 
   ngOnInit(): void {
     this.authService.user$.subscribe(async user => {
@@ -135,7 +134,6 @@ export class AdminComponent implements OnInit {
 
   private cargarResenasConExtra() {
     this.resenasService.getAll().subscribe(async resenas => {
-      // Mapea cada reseña para añadir username y viajePartido
       const temp: ResenaConExtra[] = resenas.map(r => ({
         ...r,
         resenadorUsername: '',
@@ -144,7 +142,6 @@ export class AdminComponent implements OnInit {
 
       for (let i = 0; i < temp.length; i++) {
         const r = temp[i];
-        // 1) Usuario que reseñó
         try {
           const u = await this.userservice.getById(r.userid);
           if (u) {
@@ -154,7 +151,6 @@ export class AdminComponent implements OnInit {
         } catch {
           temp[i].resenadorUsername = 'Desconocido';
         }
-        // 2) Partido del viaje
         try {
           const v = await firstValueFrom(this.viajeservice.getById(r.viajeid));
           temp[i].viajePartido = v.partido;
@@ -172,7 +168,6 @@ export class AdminComponent implements OnInit {
     if (!confirm('¿Eliminar esta reseña?')) return;
     this.resenasService.deleteAndUpdateRating(resena.id, resena.usercalificado, resena.calificacion)
       .then(() => {
-        // recarga íntegra:
         this.cargarResenasConExtra();
       })
       .catch(err => console.error('Error al eliminar reseña', err));
@@ -248,7 +243,6 @@ export class AdminComponent implements OnInit {
   async signOut() {
     try {
       await this.authService.logout();
-      console.log('User signed out');
        location.reload();
     } catch (error) {
       console.error('Sign out error:', error);

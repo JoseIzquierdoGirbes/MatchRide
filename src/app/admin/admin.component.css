@@ -138,9 +138,7 @@
   position: absolute;
   top: 0;
   right: 100%;
-  /* lo coloca a la izquierda del perfil */
   transform: translateX(-10px);
-  /* un poco más separado */
   background-color: white;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -219,7 +217,7 @@
 .admin-section tbody td {
   padding: 0.65rem 0.75rem;
   color: #333;
-  font-size: 0. nine rem;
+  font-size:0.9rem;
   border-bottom: 1px solid #e0e0e0;
 }
 
@@ -309,62 +307,7 @@
   top: 0;
 }
 
-.tabla-resenas {
-  width: 100%;
-  border-collapse: collapse;
-  font-family: Roboto, sans-serif;
-  display: block;
-  overflow-x: auto;
-  white-space: nowrap;
-  margin-bottom: 1rem;
-}
 
-.tabla-resenas thead th {
-  background-color: #007bff;
-  color: #fff;
-  padding: 0.75rem;
-  text-align: left;
-  font-weight: 600;
-  font-size: 0.95rem;
-  border-bottom: 2px solid #0056b3;
-}
-
-.tabla-resenas tbody td {
-  padding: 0.65rem 0.75rem;
-  color: #333;
-  font-size: 0.9rem;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.tabla-resenas tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-.tabla-resenas tbody tr:hover {
-  background-color: #eef6ff;
-}
-
-/* Ajusta el ancho de la columna de comentario */
-.comentario-cell {
-  max-width: 300px;
-  white-space: normal; /* permite salto de línea */
-}
-
-/* Botón eliminar reseña */
-.tabla-resenas button {
-  background: transparent;
-  border: 1px solid #c00;
-  color: #c00;
-  padding: 4px 8px;
-  font-size: 0.85rem;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
-}
-.tabla-resenas button:hover {
-  background-color: #c00;
-  color: white;
-}
 
 /* === Responsive para pantallas pequeñas (ej. <768px) === */
 @media (max-width: 768px) {

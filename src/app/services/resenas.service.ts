@@ -61,11 +61,9 @@ export class ResenasService {
 
     const promedioViejo = usuario.calificacionPromedio ?? 0;
     const countViejo = usuario.numresenas ?? 0;
-    console.log(countViejo, promedioViejo);
 
     const countNuevo = countViejo + 1;
     const promedioNuevo = (promedioViejo * countViejo + nuevaPuntuacion) / countNuevo;
-    console.log(countViejo, promedioViejo);
 
 
     await updateDoc(userRef, {
@@ -113,25 +111,25 @@ async updateUserRating(userId: string): Promise<void> {
   const snap     = await getDoc(userRef);
   if (!snap.exists()) return;
 
-  // 1) Obtener todas las reseñas que le hicieron a este usuario
+  
   const col = collection(this.db, 'resenas');
   const q   = query(col, where('usercalificado','==', userId));
   const snap2 = await getDocs(q);
 
-  // 2) Calcular nuevas métricas
+  
   const countN = snap2.size;
   let avgN = 0;
   if (countN > 0) {
     let sum = 0;
     snap2.docs.forEach(d => {
-      // Opción B: castear a Resena
+      
       const r = d.data() as Resena;
       sum += (r.calificacion || 0);
     });
     avgN = Math.round((sum / countN) * 10) / 10;
   }
 
-  // 3) Actualizar el documento de usuario
+  
   await updateDoc(userRef, { 
     numresenas: countN,
     calificacionPromedio: avgN

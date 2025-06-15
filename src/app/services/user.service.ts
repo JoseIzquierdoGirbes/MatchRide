@@ -71,61 +71,14 @@ constructor(private resenasService: ResenasService){}
     await updateDoc(userRef, { rol: nuevoRol });
   }
 
-  async deleteUserCascade2(uid: string): Promise<void> {
-    // 1) Crear el batch
-    const batch = writeBatch(this.db);
-
-    // 2) Borrar todos los viajes que organizaba este usuario + sus reservas
-    const viajesCol = collection(this.db, 'viajes');
-    const qViajes = query(viajesCol, where('organizadorId', '==', uid));
-    const snapshotViajes = await getDocs(qViajes);
-
-    for (const viajeDoc of snapshotViajes.docs) {
-      const viajeId = viajeDoc.id;
-
-      // 2.a) Marca el viaje para borrado
-      batch.delete(viajeDoc.ref);
-
-      // 2.b) Busca todas las reservas que tengan viajeid == viajeId
-      const reservasCol = collection(this.db, 'reservas');
-      const qResPorViaje = query(reservasCol, where('viajeid', '==', viajeId));
-      const snapshotResPorViaje = await getDocs(qResPorViaje);
-
-      // 2.c) Marca cada reserva encontrada para borrado
-      for (const resDoc of snapshotResPorViaje.docs) {
-        batch.delete(resDoc.ref);
-      }
-    }
-
-    // 3) Borrar todas las reservas donde usuarioid == uid (sus propias reservas)
-    const reservasCol2 = collection(this.db, 'reservas');
-    const qResPorUsuario = query(reservasCol2, where('usuarioid', '==', uid));
-    const snapshotResPorUsuario = await getDocs(qResPorUsuario);
-
-    for (const resDoc of snapshotResPorUsuario.docs) {
-      batch.delete(resDoc.ref);
-    }
-
-
-    
-
-    // 4) Finalmente, borrar el documento del usuario en /users/{uid}
-    const userRef = doc(this.db, `users/${uid}`);
-    batch.delete(userRef);
-
-    // 5) Ejecutar el batch para que realmente se eliminen todos los documentos
-    await batch.commit();
-  }
-
-
 
   async deleteUserCascade(uid: string): Promise<void> {
-  // 1) Recoger IDs de usuarios a los que él reseñó
+
   const colResByUser = collection(this.db, 'resenas');
   const qResByUser  = query(colResByUser, where('userid', '==', uid));
   const snapResByUser = await getDocs(qResByUser);
 
-  // Usamos Set<string> para los IDs únicos
+
   const afectados = new Set<string>();
   snapResByUser.docs.forEach(d => {
     const data = d.data() as any;
@@ -134,10 +87,10 @@ constructor(private resenasService: ResenasService){}
     }
   });
 
-  // 2) Preparamos el batch
+
   const batch = writeBatch(this.db);
 
-  // 2.a) Borrar viajes y sus reservas
+
   const colViajes = collection(this.db, 'viajes');
   const qViajes   = query(colViajes, where('organizadorId', '==', uid));
   const snapViajes = await getDocs(qViajes);
@@ -150,30 +103,31 @@ constructor(private resenasService: ResenasService){}
     snapResViaje.docs.forEach(rdoc => batch.delete(rdoc.ref));
   }
 
-  // 2.b) Borrar reservas propias
+
   const colResOwn = collection(this.db, 'reservas');
   const qResOwn   = query(colResOwn, where('usuarioid','==',uid));
   const snapResOwn= await getDocs(qResOwn);
   snapResOwn.docs.forEach(rdoc => batch.delete(rdoc.ref));
 
-  // 2.c) Borrar reseñas escritas por él
+
   snapResByUser.docs.forEach(rdoc => batch.delete(rdoc.ref));
 
-  // 2.d) Borrar reseñas dirigidas a él
+
   const qResToUser = query(colResByUser, where('usercalificado','==',uid));
   const snapResToUser = await getDocs(qResToUser);
   snapResToUser.docs.forEach(rdoc => batch.delete(rdoc.ref));
 
-  // 2.e) Borrar al propio usuario
+
   batch.delete(doc(this.db, 'users', uid));
 
-  // 3) Ejecutar el batch
+ 
   await batch.commit();
 
-  // 4) Para cada usuario calificado, recálcula su media de reseñas
+
   for (const calificadoId of afectados) {
     await this.resenasService.updateUserRating(calificadoId);
   }
 }
+
 }
 

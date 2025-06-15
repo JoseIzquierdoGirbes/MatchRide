@@ -72,7 +72,6 @@ throw new Error('Method not implemented.');
   async signOut() {
     try {
       await this.authService.logout();
-      console.log('User signed out');
       location.reload();
     } catch (error) {
       console.error('Sign out error:', error);

@@ -58,7 +58,6 @@ export class ViajespublicadosComponent {
   async signOut() {
     try {
       await this.authService.logout();
-      console.log('User signed out');
       location.reload();
     } catch (error) {
       console.error('Sign out error:', error);

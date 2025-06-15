@@ -82,9 +82,7 @@ export class PerfilComponent {
       }
 
       if (!this.usernameExiste) {
-        console.log("es correcto");
         this.userService.save(usuarioactualizado).then(() => {
-          console.log('Usuario guardado exitosamente');
           this.router.navigate(['/inicio']);
         }).catch(err => {
           console.error('Error al guardar usuario:', err);
@@ -105,11 +103,9 @@ export class PerfilComponent {
       if (this.usuario) {
         this.usuario.fotoPerfil = url;
       }
-      console.log('Nueva URL de foto de perfil:', url);
     }).catch((error) => {
       console.error('Error al subir la imagen:', error);
     });
-    console.log(this.url);
   }
   async cargarEquipos() {
     const equiposFirestore = await this.equiposService.getall();

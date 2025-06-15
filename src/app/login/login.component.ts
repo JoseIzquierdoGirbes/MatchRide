@@ -44,7 +44,6 @@ form = this.fb.group({
           this.errorinicioSesion = true;
           for (const u of  usuarios) {
             if (u.email === emailActual) {
-              console.log('Usuario ya registrado:', u);
               registrado=true;
             }
             if(registrado){
@@ -74,7 +73,6 @@ form = this.fb.group({
       var registrado=false;
       for (const u of  usuarios) {
         if (u.email === emailActual) {
-          console.log('Usuario ya registrado:', u);
           registrado=true;
         }
         if(registrado){
@@ -94,7 +92,6 @@ form = this.fb.group({
   async signOut() {
     try {
       await this.authService.logout();
-      console.log('User signed out');
       this.router.navigateByUrl('/');
     } catch (error) {
       console.error('Sign out error:', error);
