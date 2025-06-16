@@ -23,9 +23,10 @@ export class CrearviajeComponent {
   centerLlegada: google.maps.LatLngLiteral = { lat: 40.4168, lng: -3.7038 };
   markersLlegada: google.maps.LatLngLiteral[] = [];
   zoom = 12;
+   private geocoder = new google.maps.Geocoder();
  minDateTime!: string;
  
-  private geocoder = new google.maps.Geocoder();
+ 
 
   equipos: string[] = [];
   constructor(private equiposService: EquiposService) {
